@@ -1,0 +1,52 @@
+<div id='tabs'>
+  <ul>
+    <% @count = 1 %>
+    <% @lists.each do |list| %>
+      <li>
+        <a href="<%= '#' + 'tabs-' + @count.to_s %>">
+          <%= list.name.capitalize %>
+        </a>
+      </li>
+      <% @count += 1 %>
+    <% end %>
+    <li>
+      <a href='#tabs-new-list'>Add List +</a>
+    </li>
+  </ul>
+  <% @count = 1 %>
+  <% @lists.each do |list| %>
+    <div id="tabs-<%= @count %>" class='tab'>
+      <div class='new-task'>
+        <% form_for @task, url_for(:tasks, :index, :list_id => list) do |f| %>
+          <%= f.hidden_field :done, :input_html => { :value => false } %>
+        <% end %>
+      </div>
+    </div>
+    <p class='delete-list'>
+      <%= link_to 'Delete this list', "/lists/destroy/#{list.id}", :confirm => 'Are you sure?' %>
+    </p>
+  <% end %>
+  <div id='tabs-new-list'>
+    <h2>Add a New Task List</h2>
+    <%= partial 'lists/form' %>
+  </div>
+</div>
+
+<% if listid = params[:list_id] %>
+  <% prevlist = List.find listid %>
+  <% tabindex = @lists.index(prevlist) %>
+<% end %>
+
+<script>
+  $('.box').click(function(event) {
+    $(this).parent().next().click();
+  });
+              
+  $(function() {
+    var opts = {};
+    <% if params[:list_id] %>
+      opts.selected = <%= tabindex %>
+    <% end %>
+    $( "#tabs" ).tabs(opts);
+  });
+</script>
