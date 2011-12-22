@@ -13,6 +13,12 @@ gem 'sass'
 gem 'erubis', "~> 2.7.0"
 gem 'activerecord', :require => "active_record"
 gem 'sqlite3'
+gem 'unicorn'
+
+group :production do
+  gem 'mysql2'
+  gem 'pg'
+end
 
 # Test requirements
 gem 'rspec', :group => "test"
