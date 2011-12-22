@@ -13,7 +13,6 @@ gem 'sass'
 gem 'erubis', "~> 2.7.0"
 gem 'activerecord', :require => "active_record"
 gem 'sqlite3'
-gem 'unicorn'
 
 group :production do
   gem 'mysql2'
@@ -21,8 +20,8 @@ group :production do
 end
 
 # Test requirements
-gem 'rspec', :group => "test"
-gem 'rack-test', :require => "rack/test", :group => "test"
+gem 'rspec'
+gem 'rack-test', :require => "rack/test"
 
 # Padrino Stable Gem
 gem 'padrino', '0.10.5'
