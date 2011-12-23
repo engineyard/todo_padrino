@@ -45,7 +45,7 @@ TodoPadrino.controllers :tasks do
     end
   end
 
-  get :destroy, :parent => :list, :with => :id do
+  delete :index, :with => :id do
     @task = Task.find(params[:id])
     @task.destroy
     redirect '/'

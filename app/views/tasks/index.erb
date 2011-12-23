@@ -40,7 +40,7 @@
                 <%= f.submit '', :class => 'hidden' %>
                 <%= link_to task.name, :target => '_blank' %>
                 <p class='delete-task'>
-                  <%= link_to 'X', url_for(:tasks, :destroy, :list_id => list.id, :id => task.id), :confirm => 'Are you sure?' %> 
+                  <%= link_to 'X', "/tasks/#{task.id}", :confirm => 'Are you sure?', :method => 'delete' %> 
                 </p>
               </li>
               <% end %>
@@ -54,7 +54,7 @@
             <li class='finished'>
               <%= link_to task.name, :html => { :target => '_blank' } %>
               <p class='delete-task'>
-                <%= link_to 'X', url_for(:tasks, :destroy, :list_id => list.id, :id => task.id), :confirm => 'Are you sure?' %> 
+                <%= link_to 'X', "/tasks/#{task.id}", :confirm => 'Are you sure?', :method => 'delete' %> 
               </p>
             </li>
           <% end %>
@@ -62,7 +62,7 @@
       <% end %>
     </div>
     <p class='delete-list'>
-      <%= link_to 'Delete this list', "/lists/destroy/#{list.id}", :confirm => 'Are you sure?' %>
+      <%= link_to 'Delete this list', "/lists/#{list.id}", :confirm => 'Are you sure?', :method => 'delete' %>
     </p>
   <% end %>
   <div id='tabs-new-list'>

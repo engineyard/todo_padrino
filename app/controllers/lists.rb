@@ -28,7 +28,7 @@ TodoPadrino.controllers :lists do
     redirect url_for(:tasks, :index, :list_id => @list)
   end
   
-  get :destroy, :with => :id do
+  delete :index, :with => :id do
     @list = List.find(params[:id])
     @list.destroy
     redirect '/'
