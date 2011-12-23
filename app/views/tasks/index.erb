@@ -64,6 +64,7 @@
     <p class='delete-list'>
       <%= link_to 'Delete this list', "/lists/#{list.id}", :confirm => 'Are you sure?', :method => 'delete' %>
     </p>
+    <% @count += 1 %>
   <% end %>
   <div id='tabs-new-list'>
     <h2>Add a New Task List</h2>
