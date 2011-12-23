@@ -34,7 +34,7 @@
         <ul class='tasks pending-tasks'>
           <% list.tasks.each do |task| %>
             <% unless task.done %>
-              <% form_for task, url_for(:tasks, :update, :list_id => list.id, :id => task.id) do |f| %>
+              <% form_for task, "/lists/#{list.id}/tasks/#{task.id}" do |f| %>
               <li>
                 <%= f.check_box :done, :class => 'box' %>
                 <%= f.submit '', :class => 'hidden' %>

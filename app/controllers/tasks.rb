@@ -37,7 +37,7 @@ TodoPadrino.controllers :tasks do
     redirect url_for(:tasks, :index, :list_id => @list)
   end
 
-  put :update, :parent => :list, :with => :id do
+  put :index, :parent => :list, :with => :id do
     @list = List.find(params[:list_id])
     @task = @list.tasks.find(params[:id])
     if @task.update_attributes(params[:task])
