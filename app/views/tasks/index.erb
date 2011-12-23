@@ -17,10 +17,49 @@
   <% @lists.each do |list| %>
     <div id="tabs-<%= @count %>" class='tab'>
       <div class='new-task'>
-        <% form_for @task, url_for(:tasks, :index, :list_id => list) do |f| %>
+        <% form_for @task, url_for(:tasks, :create, :list_id => list.id) do |f| %>
           <%= f.hidden_field :done, :input_html => { :value => false } %>
+          <%= f.hidden_field :list_id, :input_html => { :value => list.id } %>
+          <div class='split-fields'>
+            <div class='field'>
+              <%= f.text_field :name, :placeholder => 'Enter a new task' %>
+            </div>
+            <div class='button'>
+              <%= f.submit 'Add task' %>
+            </div>
+          </div>
         <% end %>
       </div>
+      <% unless list.tasks.empty? %>
+        <ul class='tasks pending-tasks'>
+          <% list.tasks.each do |task| %>
+            <% unless task.done %>
+              <% form_for task, url_for(:tasks, :update, :list_id => list.id, :id => task.id) do |f| %>
+              <li>
+                <%= f.check_box :done, :class => 'box' %>
+                <%= f.submit '', :class => 'hidden' %>
+                <%= link_to task.name, :target => '_blank' %>
+                <p class='delete-task'>
+                  <%= link_to 'X', url_for(:tasks, :destroy, :list_id => list.id, :id => task.id), :confirm => 'Are you sure?' %> 
+                </p>
+              </li>
+              <% end %>
+            <% end %>
+          <% end %>
+        </ul>
+      <% end %>
+      <% unless list.done_tasks.empty? %>
+        <ul class='tasks finished-tasks'>
+          <% list.done_tasks.each do |task| %>
+            <li class='finished'>
+              <%= link_to task.name, :html => { :target => '_blank' } %>
+              <p class='delete-task'>
+                <%= link_to 'X', url_for(:tasks, :destroy, :list_id => list.id, :id => task.id), :confirm => 'Are you sure?' %> 
+              </p>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
     </div>
     <p class='delete-list'>
       <%= link_to 'Delete this list', "/lists/destroy/#{list.id}", :confirm => 'Are you sure?' %>

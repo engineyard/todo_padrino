@@ -1,7 +1,7 @@
 <% form_for @list, '/lists' do |f| %>
   <div class='split-fields'>
     <div class='field'>
-      <%= f.text_field :name, :placeholder => 'Name', :label => false %>
+      <%= f.text_field :name, :placeholder => 'Name' %>
     </div>
     <div class='button'>
       <%= f.submit 'Add List' %>

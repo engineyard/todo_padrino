@@ -25,4 +25,29 @@ TodoPadrino.controllers :tasks do
     @list  = List.new
     render 'tasks/index'
   end
+
+  post :create, :parent => :list do
+    @list = List.find(params[:list_id])
+    @task = @list.tasks.new(params[:task])
+    if @task.save
+      flash[:notice] = 'Your task was created.'
+    else
+      flash[:alert] = 'There was an error creating your task.'
+    end
+    redirect url_for(:tasks, :index, :list_id => @list)
+  end
+
+  put :update, :parent => :list, :with => :id do
+    @list = List.find(params[:list_id])
+    @task = @list.tasks.find(params[:id])
+    if @task.update_attributes(params[:task])
+      redirect url_for(:tasks, :index, :list_id => @list)
+    end
+  end
+
+  get :destroy, :parent => :list, :with => :id do
+    @task = Task.find(params[:id])
+    @task.destroy
+    redirect '/'
+  end
 end
